@@ -10,10 +10,11 @@ describe Attendee do
   end
 
   it "has a phone number" do
-    @attendee.phone_number.should_not be_nil
+    @attendee.phone_number.class.should == PhoneNumber
   end
   
   it "has a zipcode" do
-    @attendee.zipcode.should_not be_nil
+    @attendee.zipcode.class.should == Zipcode
   end
+
 end

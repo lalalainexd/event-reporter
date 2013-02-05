@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Thank You!</title>
+</head>
+<body>
+  <h1>Thanks <%= attendee.name %>!</h1>
+  <p>Thanks for coming to our conference.  We couldn't have done it without you!</p>
+
+  <p>
+    Political activism is at the heart of any democracy and your voice needs to be heard.
+  </p>
+  <p>
+    <% if attendee.phone_number.valid? %>
+      Please confirm that <%= attendee.phone_number %> is your phone number so that we can stay in contact with you!
+    <% else %>
+      We don't have your number on record. Contact us to let us know the best number to keep you updated! 
+    <% end %>
+  </p>
+    <p>
+    Please consider reaching out to your following representatives:
+  </p>
+
+  <table>
+    <tr><th>Name</th><th>Website</th></tr>
+    <tr>
+      <% legislators.each do |legislator| %>
+        <td><%= "#{legislator.firstname} #{legislator.lastname}" %></td>
+        <td><%= "#{legislator.website}" %></td>
+      <% end %>
+    </tr>
+  </table>
+</body>
+</html>

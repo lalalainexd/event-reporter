@@ -1,3 +1,6 @@
+require_relative 'phone_number'
+require_relative 'zipcode'
+
 class Attendee
   attr_reader :name
   attr_reader :phone_number
@@ -5,8 +8,8 @@ class Attendee
 
   def initialize first_name, last_name, phone_number, zipcode
     @name = "#{first_name} #{last_name}"
-    @phone_number = phone_number
-    @zipcode = zipcode
+    @phone_number = PhoneNumber.new phone_number 
+    @zipcode = Zipcode.new zipcode
   end
 
 end
