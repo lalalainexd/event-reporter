@@ -1,17 +1,13 @@
-require "csv"
-require "sunlight"
 require "erb"
 require "date"
 require_relative "attendee"
+require_relative "legislator_db"
 Sunlight::Base.api_key = "e179a6973728c4dd3fb1204283aaccb5"
 
 puts "EventManager initialized."
 
 @contents = CSV.open "event_attendees.csv", headers: true, header_converters: :symbol
 
-def legislators_in_zipcode(zipcode)
-	Sunlight::Legislator.all_in_zipcode(zipcode)
-end
 
 def get_hour date 
   DateTime.strptime(date, "%m/%d/%y %H:%M").hour
@@ -41,7 +37,7 @@ def create_form_letters
 
   attendee = Attendee.new row[:first_name], row[:last_name], row[:homephone], row[:zipcode]
 
-  legislators = legislators_in_zipcode(attendee)
+  legislators = LegislatorDb::legislators_in_zipcode(attendee)
 
   form_letter = @erb_template.result(binding)
 
