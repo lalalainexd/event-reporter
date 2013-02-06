@@ -26,13 +26,6 @@ class Queue
 
   end
 
- #def to_a
- #  # array = ( @records.inject([]) {|array, record| array << ( record.to_hash.values )}
- #  #).flatten
- #  puts @records.inspect
- #  array = @records.inject([]) { |arr, record| arr << record.to_hash.values}
- #end
-
   def print_record record
       row_data = [record.last_name, 
             record.first_name, 
@@ -63,3 +56,13 @@ class Queue
   end
 
 end
+
+Record = Struct.new(
+  :last_name,
+  :first_name,
+  :email,
+  :zipcode,
+  :city,
+  :state,
+  :address,
+  :phone)
