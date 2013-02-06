@@ -1,6 +1,6 @@
 class CommandParser
   
-  def parse args
+  def self.parse args
     parts = args.chomp.split
     case parts[0]
     when 'load' then
@@ -17,23 +17,23 @@ class CommandParser
 
   end
 
-  def load_file *args
+  def self.load_file *args
     args.empty? ? {:command => :load} : {:command => :load, :filename => args[0]}
   end
 
-  def find attribute, criteria
+  def self.find attribute, criteria
     {:command => :find, :attribute => attribute.to_sym, :criteria => criteria}
   end
 
-  def help *args
+  def self.help *args
     args.empty? ? {:command => :help} : {:command => :help, :commands => args.flatten.collect{|arg| arg.to_sym}}
   end
 
-  def command_not_recognized
+  def self.command_not_recognized
     {:command => :command_not_recognized}
   end
 
-  def parse_queue_commands args
+  def self.parse_queue_commands args
     case args[0]
     when 'count' then
       {:command => :count}
