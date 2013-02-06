@@ -1,10 +1,10 @@
 class Zipcode
   
   def initialize number
-    @number = clean_number number
+    @number = clean number
   end
 
-  def clean_number number
+  def clean number
     number.to_s.rjust(5,"0")[0,5]
   end
 
@@ -12,5 +12,5 @@ class Zipcode
     @number
   end
 
-  private :clean_number
+  private :clean
 end

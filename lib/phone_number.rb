@@ -2,11 +2,11 @@ class PhoneNumber
 
   def initialize number
     @number = number 
-    clean_number
+    clean
   end
 
   #cleans a given number and returns the clean version. if the number is not valid, then number is set to nil
-  def clean_number
+  def clean
     @number.gsub!(/\D/,"")
 
     if  has_11_digits? and starts_with_1?
@@ -14,7 +14,10 @@ class PhoneNumber
     elsif invalid_length?
       @number = nil
     end
+  end
 
+  def to_s
+    @number.nil? ? "No Number" : @number
   end
 
   def starts_with_1?
@@ -33,10 +36,6 @@ class PhoneNumber
     !@number.nil?
   end
 
-  def to_s
-    @number.nil? ? "No Number" : @number
-  end
-
-  private :clean_number, :starts_with_1?, :has_11_digits?, :invalid_length?
+  private :clean, :starts_with_1?, :has_11_digits?, :invalid_length?
 
 end
