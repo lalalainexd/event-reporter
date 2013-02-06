@@ -1,4 +1,5 @@
 class Queue
+  attr_reader :records
 
   def initialize
     @records = []
@@ -12,8 +13,8 @@ class Queue
     @records << record
   end
 
-  def all sort_criteria
-    @records.sort_by{ |p| p.send(sort_criteria).downcase }
+  def sort_by sort_criteria
+    @records.sort_by{ |p| p.send(sort_criteria.chomp).downcase }
   end
 
   def clear
@@ -24,6 +25,13 @@ class Queue
     @records.each  { |record| print_record record }
 
   end
+
+ #def to_a
+ #  # array = ( @records.inject([]) {|array, record| array << ( record.to_hash.values )}
+ #  #).flatten
+ #  puts @records.inspect
+ #  array = @records.inject([]) { |arr, record| arr << record.to_hash.values}
+ #end
 
   def print_record record
       row_data = [record.last_name, 

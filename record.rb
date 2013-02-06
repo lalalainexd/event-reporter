@@ -12,4 +12,15 @@ class Record
     @phone = phone
   end
 
+  def to_hash
+    {:last_name => @last_name,
+      :first_name => @first_name,
+      :email => @email,
+      :zipcode => @zipcode,
+      :city => @city,
+      :state => @state,
+      :address => @address,
+      :phone => @phone} 
+  end
+
 end
