@@ -51,21 +51,29 @@ class CommandParser
     when 'clear' then
       {:command => :clear}
     when 'print' then
-      if args.length == 1
-        {:command => :print }
-      elsif args[1] == 'by' and args.length > 2
-        {:command => :print, :attribute => args[2].to_sym}
-      else
-        command_not_recognized
-      end
+      queue_print args
     when 'save' then
+      queue_save args
+    else
+      command_not_recognized
+    end
+  end
+
+  def self.queue_print args
+    if args.length == 1
+      {:command => :print }
+    elsif args[1] == 'by' and args.length > 2
+      {:command => :print, :attribute => args[2].to_sym}
+    else
+      command_not_recognized
+    end
+  end
+
+  def self.queue_save args
       if args.length < 3 or args[1] != 'to'
         command_not_recognized
       else
         {:command => :save, :filename => args[2]}
       end
-    else
-      command_not_recognized
-    end
   end
 end
