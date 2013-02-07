@@ -6,7 +6,7 @@ require 'csv'
 class EventReporterController
 
   def initialize
-    @queue = Cache.new
+    @cache = Cache.new
   end
 
   def parse input
@@ -14,7 +14,7 @@ class EventReporterController
   end
 
   def perform command, options={}
-    send command options
+    options.empty? ? send( command  ): send( command, options )
   end
 
   def load options={}
@@ -28,31 +28,31 @@ class EventReporterController
 
   def find attribute, criteria
     results = @db.find attribute.chomp, criteria.chomp
-    results.each{|r| @queue.add r}
+    results.each{|r| @cache.add r}
 
     results
   end
 
   def sort_by attribute
-    @queue.all attribute.chomp
+    @cache.all attribute.chomp
   end
 
   def count
-    @queue.count
+    @cache.count
   end
 
   def clear
-    @queue.clear
+    @cache.clear
   end
 
   #assuming filename already .csv as the extenstion
   def save filename
-    @queue.records    
+    @cache.records    
     csv_file = CSV.open filename, 'w' do |csv|
 
       csv << headers
 
-      @queue.records.each{|record| csv << record.values}
+      @cache.records.each{|record| csv << record.values}
       end
   end
 
