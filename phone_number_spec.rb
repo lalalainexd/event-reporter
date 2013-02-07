@@ -1,4 +1,4 @@
-require_relative '../lib/phone_number'
+require_relative 'phone_number'
 
 describe PhoneNumber do
 

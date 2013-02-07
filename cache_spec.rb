@@ -1,7 +1,7 @@
 require_relative 'cache'
 require_relative 'record_db'
 
-describe Queue do
+describe Cache do
 
   before do
     @mock_record = Record.new "Smith", "John","john_smith@blah.com","80246","Denver","Colorado", "1111 Washington Rd","1234567890"
@@ -10,12 +10,12 @@ describe Queue do
 
     @mock_record3 = Record.new "George", "Richard","gumby@blah.com","20954","Potomac Church","MD", "41234 Hikcory Lane","3214567890"
     
-    @empty_queue = Queue.new
+    @empty_queue = Cache.new
 
-    @queue = Queue.new 
+    @queue = Cache.new 
     @queue.add @mock_record
 
-    @queue2 = Queue.new
+    @queue2 = Cache.new
     @queue2.add @mock_record
     @queue2.add @mock_record2
     @queue2.add @mock_record3
