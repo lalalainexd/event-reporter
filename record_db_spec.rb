@@ -1,4 +1,4 @@
-require_relative '../lib/record_db'
+require_relative 'record_db'
 
 describe RecordDB do
   

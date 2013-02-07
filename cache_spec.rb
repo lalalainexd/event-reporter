@@ -11,6 +11,7 @@ describe Queue do
     @mock_record3 = Record.new "George", "Richard","gumby@blah.com","20954","Potomac Church","MD", "41234 Hikcory Lane","3214567890"
     
     @empty_queue = Queue.new
+
     @queue = Queue.new 
     @queue.add @mock_record
 

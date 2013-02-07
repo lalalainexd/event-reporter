@@ -4,29 +4,38 @@ class CommandParser
     parts = args.chomp.split
     case parts[0]
     when 'load' then
-      parts.length == 1 ? load_file : load_file(parts[1])
+      load_file :filename => parts[1]
     when 'help' then
-      parts.length == 1 ? help : help(parts[1..-1])
+     parts.length == 1 ? help : help( :commands => parts[1..-1] )
     when 'find' then
       parts.length < 3 ? command_not_recognized : ( find parts[1], parts[2] )
     when 'queue' then
       parse_queue_commands parts[1..-1]
+    when 'quit' then
+      {:command => :quit}
     else
       command_not_recognized
     end
 
   end
 
-  def self.load_file *args
-    args.empty? ? {:command => :load} : {:command => :load, :filename => args[0]}
+  def self.load_file options={}
+
+    command = {:command => :load}
+    command[:filename] = options[:filename] unless options[:filename].nil?
+
+    command
+
   end
 
   def self.find attribute, criteria
     {:command => :find, :attribute => attribute.to_sym, :criteria => criteria}
   end
 
-  def self.help *args
-    args.empty? ? {:command => :help} : {:command => :help, :commands => args.flatten.collect{|arg| arg.to_sym}}
+  def self.help options={}
+    help_command = {:command => :help}
+    help_command[:commands] = options[:commands].collect{|c| c.to_sym} unless options[:commands].nil?
+
   end
 
   def self.command_not_recognized

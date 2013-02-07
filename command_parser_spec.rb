@@ -2,8 +2,12 @@ require_relative 'command_parser'
 
 describe CommandParser do
 
+  it "should recognize the command 'quit'" do
+    CommandParser.parse('quit').should == {:command => :quit}
+  end
+
   it "should recognize the command 'load'" do
-    CommandParser.parse( 'load' ).should == {:command => :load }
+    CommandParser.parse( 'load' ).should == {:command => :load}
   end
 
   it "should recognize the command 'load' and a filename" do
@@ -13,7 +17,6 @@ describe CommandParser do
   it "should recognize the command 'find' with attributes and critieria on those attributes" do
     CommandParser.parse('find zipcode 20123').should == {:command => :find, :attribute => :zipcode, :criteria => '20123'}
   end
-
 
   it "should recognize the command 'help'" do
     CommandParser.parse('help').should == {:command => :help}
@@ -46,7 +49,7 @@ describe CommandParser do
     end
   end
 
-  context 'bad commands' do
+  context 'receiving bad commands' do
     it "should not recognize stuff that isn't a command" do
       CommandParser.parse('asdff').should == {:command => :command_not_recognized}
     end

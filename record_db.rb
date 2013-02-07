@@ -1,11 +1,9 @@
 require 'csv'
-require_relative 'queue'
 
 class RecordDB
   
-  def initialize file
+  def initialize file 
     @records = []
-
     load_db file
   end
 

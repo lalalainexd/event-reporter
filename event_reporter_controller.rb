@@ -13,13 +13,17 @@ class EventReporterController
     CommandParser.parse input
   end
 
-  def perform_command
-
+  def perform command, options={}
+    send command options
   end
 
-  def load *file
-    file = ["event_attendees.csv"] if file.nil? or file.empty?
-    @db = RecordDB.new file[0]
+  def load options={}
+    defaults = {:filename => "event_attendees.csv"}
+    options = defaults.merge options
+    
+    puts options[:filename]
+
+    @db = RecordDB.new options[:filename]
   end
 
   def find attribute, criteria
@@ -50,6 +54,10 @@ class EventReporterController
 
       @queue.records.each{|record| csv << record.values}
       end
+  end
+
+  def quit
+    exit
   end
 
 

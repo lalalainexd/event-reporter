@@ -17,7 +17,7 @@ class EventReporter
       if command[:command] == :command_not_recognized
         print "Command not recognized. Type help for a list of available commands"
       else
-        @controller.perform_command command
+        @controller.perform command[:command]
       end
 
     end
