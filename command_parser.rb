@@ -36,6 +36,8 @@ class CommandParser
     help_command = {:command => :help}
     help_command[:commands] = options[:commands].collect{|c| c.to_sym} unless options[:commands].nil?
 
+    help_command
+
   end
 
   def self.command_not_recognized
