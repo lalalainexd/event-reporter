@@ -21,16 +21,19 @@ class EventReporterController
     defaults = {:filename => "event_attendees.csv"}
     options = defaults.merge options
     
-    puts options[:filename]
-
     @db = RecordDB.new options[:filename]
   end
 
-  def find attribute, criteria
-    results = @db.find attribute.chomp, criteria.chomp
+  # Finds records in the DB, adds them to the cache and returns results of the query
+  def find options ={}
+    results = @db.find options[:attribute ], options[:criteria]
     results.each{|r| @cache.add r}
 
     results
+  end
+
+  def print 
+    @cache.print_records
   end
 
   def sort_by attribute
