@@ -1,43 +1,30 @@
-require_relative "attendee"
-require_relative "legislator_db"
+require_relative 'event_reporter_controller'
 
 class EventReporter
+
+  def initialize
+    @controller = EventReporterController.new
+
+  end
+
   def run
 
     loop do
+
       puts "Please enter a command: "
-      parts = gets.chomp.split(' ')
+      command = @controller.parse gets.chomp
 
-      send("#{parts[0]}", parts[1..-1])
-
-
+      if command[:command] == :command_not_recognized
+        print "Command not recognized. Type help for a list of available commands"
+      else
+        @controller.perform_command command
+      end
 
     end
 
   end
-
-  def help args
-    
-    if args.size == 0
-      print_command_list
-    end
-    
-    puts "You asked for help"
-
-  end
-
-  def quit args
-    exit
-  end
-
-  def print_command_list
-    puts 'print command list'
-  end
-
 
 end
-
-
 
 EventReporter.new.run
 

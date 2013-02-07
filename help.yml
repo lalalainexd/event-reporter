@@ -1,0 +1,10 @@
+--- 
+help: This is the help
+load   : 2001-01-23
+queue: &id001
+    count  : Chris
+    clear : Dumars
+    print by: Stuf
+    save to: save
+find: <attribute> <criteria> >
+    Looks in the loaded file for entries who's <attribute> fit <criteria>

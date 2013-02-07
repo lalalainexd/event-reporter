@@ -1,5 +1,5 @@
 require 'csv'
-require_relative 'record'
+require_relative 'queue'
 
 class RecordDB
   
@@ -39,3 +39,13 @@ class RecordDB
   private :add_record, :load_db
 
 end
+
+Record = Struct.new(
+  :last_name,
+  :first_name,
+  :email,
+  :zipcode,
+  :city,
+  :state,
+  :address,
+  :phone)

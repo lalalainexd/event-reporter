@@ -1,4 +1,4 @@
-class Queue
+class Cache
   attr_reader :records
 
   def initialize
@@ -14,7 +14,7 @@ class Queue
   end
 
   def sort_by sort_criteria
-    @records.sort_by{ |p| p.send(sort_criteria.chomp).downcase }
+    @records = @records.sort_by{ |p| p.send(sort_criteria).downcase }
   end
 
   def clear
@@ -22,21 +22,17 @@ class Queue
   end
 
   def print_records *attribute
+
+    print_header_row
+
+    sort_by attribute[0] unless attribute.empty?
+
     @records.each  { |record| print_record record }
 
   end
 
   def print_record record
-      row_data = [record.last_name, 
-            record.first_name, 
-            record.email, 
-            record.zipcode, 
-            record.city, 
-            record.state, 
-            record.address, 
-            record.phone]
-
-      puts row_data.inject(''){|sum, h| "%s%-20s" % [sum, h]}
+      puts record.values.inject(''){|print_string, h| "%s%-20s" % [print_string, h]}
   end
 
   def print_header_row
@@ -57,12 +53,3 @@ class Queue
 
 end
 
-Record = Struct.new(
-  :last_name,
-  :first_name,
-  :email,
-  :zipcode,
-  :city,
-  :state,
-  :address,
-  :phone)

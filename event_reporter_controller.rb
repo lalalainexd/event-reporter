@@ -1,11 +1,20 @@
-require_relative "record_db"
-require_relative "queue"
+require_relative 'record_db'
+require_relative 'cache'
+require_relative 'command_parser'
 require 'csv'
 
 class EventReporterController
 
   def initialize
-    @queue = Queue.new
+    @queue = Cache.new
+  end
+
+  def parse input
+    CommandParser.parse input
+  end
+
+  def perform_command
+
   end
 
   def load *file
@@ -15,7 +24,6 @@ class EventReporterController
 
   def find attribute, criteria
     results = @db.find attribute.chomp, criteria.chomp
-
     results.each{|r| @queue.add r}
 
     results
@@ -40,7 +48,7 @@ class EventReporterController
 
       csv << headers
 
-      @queue.records.each{|record| csv << record.to_hash.values}
+      @queue.records.each{|record| csv << record.values}
       end
   end
 
