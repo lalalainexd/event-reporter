@@ -32,12 +32,8 @@ class EventReporterController
     results
   end
 
-  def print 
-    @cache.print_records
-  end
-
-  def sort_by attribute
-    @cache.all attribute.chomp
+  def print  option ={}
+    @cache.print_records option[:attribute]
   end
 
   def count
